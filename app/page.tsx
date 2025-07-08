@@ -13,121 +13,26 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Nav from "@/components/nav/nav"
+import Image from "next/image"
+import MapMarker from "@/components/map"
 
 const WindowCleanerWebsite = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
     <div className="min-h-screen bg-background">
-      {/* Mobile Menu Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 md:hidden"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-      {/* Navigation */}
-      <nav className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-primary">CrystalClear</h1>
-            </div>
-            <div className="hidden md:flex space-x-8">
-              <a
-                href="#services"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Services
-              </a>
-              <a
-                href="#process"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Process
-              </a>
-              <a
-                href="#pricing"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Pricing
-              </a>
-              <a
-                href="#contact"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button className="hidden sm:inline-flex">Get Quote</Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        {mobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-b shadow-lg z-50 md:hidden">
-            <div className="px-4 py-4 space-y-2">
-              <a
-                href="#services"
-                className="block px-3 py-3 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Services
-              </a>
-              <a
-                href="#process"
-                className="block px-3 py-3 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Process
-              </a>
-              <a
-                href="#pricing"
-                className="block px-3 py-3 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Pricing
-              </a>
-              <a
-                href="#contact"
-                className="block px-3 py-3 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </a>
-
-              <div className="pt-2">
-                <Button
-                  className="w-full"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Get Quote
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 dark:from-blue-950 dark:to-indigo-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        className="relative py-20 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/hero.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Dirty Windows?
               <br />
-              <span className="text-primary">We can fix that</span>
+              <span className="text-blue-400">We can fix that</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Professional window cleaning services that leave your windows
               spotless and streak-free. Satisfaction guaranteed.
             </p>
@@ -247,7 +152,7 @@ const WindowCleanerWebsite = () => {
       <section id="pricing" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-5xl font-bold text-foreground mb-4">
               Save Big with Our
               <br />
               <span className="text-primary">Service Plans</span>
@@ -258,7 +163,7 @@ const WindowCleanerWebsite = () => {
             {[
               {
                 plan: "Monthly",
-                discount: "$25 OFF",
+                discount: "$150 OFF",
                 subtitle: "Per Cleaning",
                 features: [
                   "Priority Scheduling",
@@ -270,7 +175,7 @@ const WindowCleanerWebsite = () => {
               },
               {
                 plan: "Quarterly",
-                discount: "$15 OFF",
+                discount: "$100 OFF",
                 subtitle: "Per Cleaning",
                 features: [
                   "Seasonal Deep Clean",
@@ -282,7 +187,7 @@ const WindowCleanerWebsite = () => {
               },
               {
                 plan: "Bi-Annual",
-                discount: "$10 OFF",
+                discount: "$50 OFF",
                 subtitle: "Per Cleaning",
                 features: [
                   "Spring & Fall Service",
@@ -348,7 +253,7 @@ const WindowCleanerWebsite = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               "Downtown",
               "Midtown",
@@ -366,7 +271,9 @@ const WindowCleanerWebsite = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </div> */}
+
+          <MapMarker />
         </div>
       </section>
 
@@ -404,13 +311,17 @@ const WindowCleanerWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-foreground">
-                CrystalClear
-              </h3>
-              <p className="text-muted-foreground">
+              <Image
+                src={"/logo.png"}
+                alt="PrimeShine Logo"
+                width={150}
+                height={50}
+              />
+              {/* <p className="text-muted-foreground">
                 Professional window cleaning services you can trust.
-              </p>
+              </p> */}
             </div>
+
             <div>
               <h4 className="text-lg font-semibold mb-4 text-foreground">
                 Services
@@ -449,9 +360,7 @@ const WindowCleanerWebsite = () => {
             </div>
           </div>
           <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-            <p>
-              &copy; 2024 CrystalClear Window Cleaning. All rights reserved.
-            </p>
+            <p>&copy; 2024 PrimeShine Cleaning. All rights reserved.</p>
           </div>
         </div>
       </footer>
