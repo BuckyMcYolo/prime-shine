@@ -358,7 +358,7 @@ const WindowCleanerWebsite = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 mr-2" />
-                  <span>info@crystalclear.com</span>
+                  <span>info@primeshinecleaning.com</span>
                 </div>
               </div>
             </div>
