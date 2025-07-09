@@ -57,9 +57,9 @@ const MapMarker = () => {
       <div className="max-w-[1000px] w-full">
         <Map
           //   provider={stamenToner}
-          height={400}
+          height={450}
           defaultCenter={[34.25807, -88.70464]}
-          defaultZoom={9}
+          defaultZoom={10}
         >
           <Marker
             width={50}
@@ -68,12 +68,12 @@ const MapMarker = () => {
           <GeoJson
             data={createGeoJsonCircle(
               [34.25807, -88.70464],
-              50 // Radius in kilometers
+              16 // 10 miles in kilometers
             )}
             styleCallback={(_: any, hover: any) => ({
-              fill: hover ? "#ffcccc99" : "#d4e6ec99", // Change color on hover
+              fill: "#d4e6ec99",
               strokeWidth: "2",
-              stroke: hover ? "red" : "blue",
+              stroke: "blue",
             })}
           />
         </Map>

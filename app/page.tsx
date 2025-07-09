@@ -1,7 +1,15 @@
 "use client"
 
 import React, { useState } from "react"
-import { Star, CheckCircle, Phone, Mail, MapPin, Menu } from "lucide-react"
+import {
+  Star,
+  CheckCircle,
+  Phone,
+  Mail,
+  MapPin,
+  Menu,
+  ArrowRight,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,9 +20,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import Nav from "@/components/nav/nav"
 import Image from "next/image"
 import MapMarker from "@/components/map"
+import { ReactGoogleReviews } from "react-google-reviews"
+import { MasonryContainer } from "@/components/reviews/masonry-container"
+import { ReviewCard } from "@/components/reviews/review-card"
 
 const WindowCleanerWebsite = () => {
   return (
@@ -36,9 +46,10 @@ const WindowCleanerWebsite = () => {
               Professional window cleaning services that leave your windows
               spotless and streak-free. Satisfaction guaranteed.
             </p>
-            <Button size="lg" className="text-lg px-8 py-6 h-auto">
+            <button className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
               Get Your Free Quote
-            </Button>
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
           </div>
         </div>
       </section>
@@ -55,42 +66,58 @@ const WindowCleanerWebsite = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 step: "1",
-                title: "Inspect",
-                desc: "We assess your windows and identify any specific cleaning needs",
+                title: "Scrub",
+                desc: "Deep clean with professional-grade solutions to remove all dirt and grime",
+                image: "/prime-shine-scrub.png",
               },
               {
                 step: "2",
-                title: "Scrub",
-                desc: "Deep clean with professional-grade solutions to remove all dirt and grime",
+                title: "Squeegee",
+                desc: "Perfect streak-free finish using professional squeegee techniques",
+                image: "/prime-shine-squegee.png",
               },
               {
                 step: "3",
-                title: "Squeegee",
-                desc: "Perfect streak-free finish using professional squeegee techniques",
+                title: "Detail",
+                desc: "Thoroughly clean edges and corners for a spotless finish",
+                image: "/prime-shine-detail.png",
               },
               {
                 step: "4",
-                title: "Protection",
+                title: "Protect",
                 desc: "Apply protective coating for longer-lasting cleanliness",
+                image: "/prime-shine-rainblock-tech.png",
               },
-            ].map((item, index) => (
-              <Card key={index} className="text-center border-none shadow-none">
-                <CardContent className="p-6">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-primary/20 transition-colors">
-                    <span className="text-2xl font-bold text-primary">
-                      {item.step}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {item.title}
+            ].map((step) => (
+              <div
+                key={step.step}
+                className="bg-white dark:bg-neutral-800/50 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-700 hover:border-blue-300 hover:dark:border-blue-700 shadow-sm hover:shadow-md transition-all"
+              >
+                {/* Image area with overflow effect - notice we removed object-contain */}
+                <div className="relative h-96 overflow-hidden">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    className="w-[100%] max-w-none object-cover object-center-top transform -translate-y-4"
+                    width={500}
+                    height={500}
+                  />
+                </div>
+
+                {/* Content area */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                    {step.step}. {step.title}
                   </h3>
-                  <p className="text-muted-foreground">{item.desc}</p>
-                </CardContent>
-              </Card>
+                  <p className="text-gray-600 dark:text-gray-300 text-base">
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -100,51 +127,43 @@ const WindowCleanerWebsite = () => {
       <section className="py-20 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-5xl font-bold text-foreground mb-4">
               See What Your
               <br />
               <span className="text-primary">Neighbors Are Saying</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                text: "Absolutely amazing service! My windows have never looked better. The team was professional and thorough.",
-                rating: 5,
-              },
-              {
-                name: "Mike Chen",
-                text: "Great value for money. They showed up on time and did exactly what they promised. Highly recommend!",
-                rating: 5,
-              },
-              {
-                name: "Emily Davis",
-                text: "I've been using their monthly service for a year now. Consistent quality and friendly staff every time.",
-                rating: 5,
-              },
-            ].map((review, index) => (
-              <Card key={index}>
-                <CardContent className="p-6">
-                  <div className="flex mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-current"
+          <ReactGoogleReviews
+            layout="custom"
+            featurableId={process.env.NEXT_PUBLIC_FEATURABLE_ID!}
+            renderer={(reviews) => {
+              return (
+                <MasonryContainer>
+                  {reviews.map(
+                    ({
+                      reviewId,
+                      reviewer,
+                      comment,
+                      starRating,
+                      createTime,
+                    }) => (
+                      <ReviewCard
+                        key={reviewId}
+                        review={{
+                          reviewId,
+                          reviewer,
+                          comment,
+                          starRating,
+                          createTime,
+                        }}
                       />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    &quot;{review.text}&quot;
-                  </p>
-                  <p className="font-semibold text-foreground">
-                    - {review.name}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    )
+                  )}
+                </MasonryContainer>
+              )
+            }}
+          />
         </div>
       </section>
 
@@ -249,63 +268,58 @@ const WindowCleanerWebsite = () => {
             <h2 className="text-4xl font-bold text-foreground mb-4">
               <span className="text-primary">Proudly Serving</span>
               <br />
-              Your Local Area
+              The Tupelo Area
             </h2>
           </div>
-
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              "Downtown",
-              "Midtown",
-              "Westside",
-              "Eastside",
-              "North Hills",
-              "South Bay",
-              "Riverside",
-              "Valley View",
-            ].map((area, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4 text-center">
-                  <MapPin className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="font-semibold text-foreground">{area}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div> */}
-
-          <MapMarker />
+          <Card className="max-w-4xl mx-auto">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl">Service Area</CardTitle>
+              <CardDescription>
+                We provide professional window cleaning services throughout the
+                greater Tupelo area
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MapMarker />
+            </CardContent>
+          </Card>
         </div>
       </section>
+      {/* CTA Section with Wavy Top */}
+      <section className="relative">
+        {/* Wave SVG */}
+        <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
+          <svg
+            className="relative block w-full h-20"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+              className="fill-white"
+            ></path>
+          </svg>
+        </div>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Ready for Crystal Clear Windows?
-          </h2>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            Get your free quote today and experience the difference professional
-            window cleaning makes.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              variant="secondary"
-              className="text-lg px-8 py-6 h-auto"
-            >
-              Get Free Quote
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 h-auto border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-            >
-              Call Now: (555) 123-4567
-            </Button>
+        {/* Content */}
+        <div className="bg-primary text-primary-foreground pt-32 pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold mb-6">
+              Ready for Crystal Clear Windows?
+            </h2>
+            <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+              Get your free quote today and experience the difference
+              professional window cleaning makes.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="px-10 py-6">
+                Get Free Quote
+              </Button>
+            </div>
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-secondary text-secondary-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
