@@ -28,22 +28,22 @@ const Nav = () => {
   const Links = () => {
     return (
       <>
-        <Link href="/">
+        {/* <Link href="/">
           <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
             Services
           </Button>
-        </Link>
-        <Link href="/pricing">
+        </Link> */}
+        <Link href="/#process">
           <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
             Process
           </Button>
         </Link>
-        <Link href="/blog">
+        <Link href="/#pricing">
           <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
             Pricing
           </Button>
         </Link>
-        <Link href="/blog">
+        <Link href="/#cta">
           <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
             Contact
           </Button>
@@ -65,9 +65,9 @@ const Nav = () => {
               <Image
                 src={"/logo.png"}
                 alt="PrimeShine Logo"
-                width={95}
+                width={70}
                 height={50}
-                className="translate-y-1"
+                className="translate-y-1 sm:scale-110"
               />
             </div>
           </Link>
@@ -94,15 +94,10 @@ const Nav = () => {
           <div className="mr-4">
             <Links />
           </div>
-          <Link
-            href="https://app.getaxon.ai/login"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button size={"lg"} className="text-lg">
-              Get a Quote
-            </Button>
-          </Link>
+
+          <Button size={"lg"} className="text-lg">
+            Get a Quote
+          </Button>
         </div>
       </nav>
 
@@ -119,15 +114,7 @@ const Nav = () => {
             <Card className="bg-white dark:bg-neutral-950 rounded-none">
               <motion.section key="section" className="flex flex-col">
                 <Links />
-
-                <Link
-                  href="https://app.getaxon.ai/login"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mx-2 mb-3"
-                >
-                  <Button className="text-sm">Get a Quote</Button>
-                </Link>
+                <Button className="text-sm">Get a Quote</Button>
               </motion.section>
             </Card>
           </motion.div>

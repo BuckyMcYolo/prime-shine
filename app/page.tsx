@@ -286,7 +286,7 @@ const WindowCleanerWebsite = () => {
         </div>
       </section>
       {/* CTA Section with Wavy Top */}
-      <section className="relative">
+      <section className="relative" id="cta">
         {/* Wave SVG */}
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
           <svg
