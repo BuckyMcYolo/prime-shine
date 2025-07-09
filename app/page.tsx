@@ -374,7 +374,10 @@ const WindowCleanerWebsite = () => {
             </div>
           </div>
           <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 PrimeShine Cleaning. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} PrimeShine Cleaning. All rights
+              reserved.
+            </p>
           </div>
         </div>
       </footer>
