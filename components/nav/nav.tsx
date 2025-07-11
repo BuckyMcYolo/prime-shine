@@ -43,7 +43,7 @@ const Nav = () => {
             Pricing
           </Button>
         </Link>
-        <Link href="/#cta">
+        <Link href="/#contact">
           <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
             Contact
           </Button>

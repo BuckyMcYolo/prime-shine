@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
+import { useForm } from "react-hook-form"
 import {
   Star,
   CheckCircle,
@@ -9,6 +10,9 @@ import {
   MapPin,
   Menu,
   ArrowRight,
+  Send,
+  AlertCircle,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,13 +24,88 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import MapMarker from "@/components/map"
 import { ReactGoogleReviews } from "react-google-reviews"
 import { MasonryContainer } from "@/components/reviews/masonry-container"
 import { ReviewCard } from "@/components/reviews/review-card"
+import { sendContactEmail } from "@/actions/send-email"
 
 const WindowCleanerWebsite = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error"
+    message: string
+  } | null>(null)
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      serviceType: "",
+      address: "",
+      message: "",
+    },
+    mode: "all",
+  })
+
+  interface FormData {
+    name: string
+    email: string
+    phone: string
+    serviceType: string
+    address: string
+    message: string
+  }
+
+  const onSubmit = async (data: FormData): Promise<void> => {
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const result = await sendContactEmail(data)
+
+      if (result.success) {
+        setSubmitStatus({
+          type: "success",
+          message:
+            "Thank you! Your message has been sent. We'll get back to you within 24 hours!",
+        })
+        reset() // Reset form after successful submission
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: result.error || "Something went wrong. Please try again.",
+        })
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Network error. Please check your connection and try again.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -285,8 +364,216 @@ const WindowCleanerWebsite = () => {
           </Card>
         </div>
       </section>
+
+      {/* Contact Form Section */}
+      <section className="py-20" id="contact">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-foreground mb-4">
+              Get Your <span className="text-primary">Free Quote</span>
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Ready for spotless windows? Fill out the form below and we&apos;ll
+              get back to you within 24 hours.
+            </p>
+          </div>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Contact Us</CardTitle>
+              <CardDescription className="text-center">
+                Tell us about your window cleaning needs
+              </CardDescription>
+            </CardHeader>
+
+            {submitStatus && (
+              <div className="mx-6 mb-6">
+                <div
+                  className={`p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-50 border border-green-200 text-green-800"
+                      : "bg-red-50 border border-red-200 text-red-800"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    {submitStatus.type === "success" ? (
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 mr-2" />
+                    )}
+                    <p>{submitStatus.message}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Name Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input
+                      id="name"
+                      {...register("name", {
+                        required: "Name is required",
+                        minLength: {
+                          value: 2,
+                          message: "Name must be at least 2 characters",
+                        },
+                      })}
+                      placeholder="Your full name"
+                      className={errors.name ? "border-red-500" : ""}
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-red-500">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Email Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address",
+                        },
+                      })}
+                      placeholder="your@email.com"
+                      className={errors.email ? "border-red-500" : ""}
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-red-500">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Phone Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      {...register("phone", {
+                        required: "Phone number is required",
+                        pattern: {
+                          value: /^[\+]?[1-9][\d]{0,15}$/,
+                          message: "Invalid phone number",
+                        },
+                      })}
+                      placeholder="(555) 123-4567"
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && (
+                      <p className="text-sm text-red-500">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Service Type Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="serviceType">Service Type *</Label>
+                    <Select
+                      onValueChange={(value) => setValue("serviceType", value)}
+                    >
+                      <SelectTrigger
+                        className={errors.serviceType ? "border-red-500" : ""}
+                      >
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="residential-windows">
+                          Residential Windows
+                        </SelectItem>
+                        <SelectItem value="commercial-windows">
+                          Commercial Windows
+                        </SelectItem>
+                        <SelectItem value="pressure-washing">
+                          Pressure Washing
+                        </SelectItem>
+                        <SelectItem value="gutter-cleaning">
+                          Gutter Cleaning
+                        </SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <input
+                      type="hidden"
+                      {...register("serviceType", {
+                        required: "Please select a service type",
+                      })}
+                    />
+                    {errors.serviceType && (
+                      <p className="text-sm text-red-500">
+                        {errors.serviceType.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Address Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="address">Property Address</Label>
+                  <Input
+                    id="address"
+                    {...register("address")}
+                    placeholder="123 Main St, Tupelo, MS 38801"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Optional: Helps us provide a more accurate quote
+                  </p>
+                </div>
+
+                {/* Message Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    {...register("message", {})}
+                    placeholder="Tell us about your window cleaning needs, number of windows, any special requirements..."
+                    className={`min-h-[120px] `}
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-center">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={isSubmitting}
+                    className="px-8 py-3 text-lg"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-5 w-5" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* CTA Section with Wavy Top */}
-      <section className="relative" id="cta">
+      <section className="relative">
         {/* Wave SVG */}
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
           <svg
@@ -320,6 +607,7 @@ const WindowCleanerWebsite = () => {
           </div>
         </div>
       </section>
+
       {/* Footer */}
       <footer className="bg-secondary text-secondary-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
