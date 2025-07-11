@@ -492,17 +492,17 @@ const WindowCleanerWebsite = () => {
                         <SelectValue placeholder="Select a service" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="residential-windows">
-                          Residential Windows
-                        </SelectItem>
-                        <SelectItem value="commercial-windows">
-                          Commercial Windows
-                        </SelectItem>
-                        <SelectItem value="pressure-washing">
-                          Pressure Washing
+                        <SelectItem value="window-cleaning">
+                          Window Cleaning
                         </SelectItem>
                         <SelectItem value="gutter-cleaning">
                           Gutter Cleaning
+                        </SelectItem>
+                        <SelectItem value="house-washing">
+                          House Washing
+                        </SelectItem>
+                        <SelectItem value="pressure-washing">
+                          Pressure Washing
                         </SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
@@ -629,10 +629,10 @@ const WindowCleanerWebsite = () => {
                 Services
               </h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li>Residential Windows</li>
-                <li>Commercial Windows</li>
-                <li>Pressure Washing</li>
+                <li>Window Cleaning</li>
                 <li>Gutter Cleaning</li>
+                <li>House Washing</li>
+                <li>Pressure Washing</li>
               </ul>
             </div>
             <div>
@@ -655,9 +655,7 @@ const WindowCleanerWebsite = () => {
                 Hours
               </h4>
               <div className="text-muted-foreground">
-                <p>Monday - Friday: 8am - 6pm</p>
-                <p>Saturday: 9am - 4pm</p>
-                <p>Sunday: Closed</p>
+                <p>Monday - Sunday: 7am - 8pm</p>
               </div>
             </div>
           </div>
