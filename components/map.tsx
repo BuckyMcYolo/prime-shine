@@ -59,7 +59,7 @@ const MapMarker = () => {
           //   provider={stamenToner}
           height={450}
           defaultCenter={[34.25807, -88.70464]}
-          defaultZoom={10}
+          defaultZoom={9}
         >
           <Marker
             width={50}
@@ -68,7 +68,8 @@ const MapMarker = () => {
           <GeoJson
             data={createGeoJsonCircle(
               [34.25807, -88.70464],
-              16 // 10 miles in kilometers
+              // 20 miles in kilometers
+              32.19
             )}
             styleCallback={(_: any, hover: any) => ({
               fill: "#d4e6ec99",

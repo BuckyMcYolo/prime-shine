@@ -5,6 +5,7 @@ export async function sendContactEmail(formData: {
   email: string
   phone: string
   serviceType: string
+  servicePlan?: string
   address?: string
   message: string
 }) {
@@ -19,8 +20,8 @@ export async function sendContactEmail(formData: {
     }
 
     // Extract form data
-    const { name, email, phone, serviceType, address, message } = formData
-
+    const { name, email, phone, serviceType, servicePlan, address, message } =
+      formData
     // Validate required fields
     if (!name || !email || !phone || !serviceType || !message) {
       return {
@@ -30,8 +31,9 @@ export async function sendContactEmail(formData: {
     }
 
     // Create email content
-    const subject = `New Contact Form Submission - ${serviceType}`
-
+    const subject = `New Contact Form Submission - ${serviceType}${
+      servicePlan ? ` (${servicePlan})` : ""
+    }`
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -78,6 +80,17 @@ export async function sendContactEmail(formData: {
               </div>
               
               ${
+                servicePlan
+                  ? `
+                <div class="field">
+                  <div class="field-label">Service Plan:</div>
+                  <div class="field-value">${servicePlan}</div>
+                </div>
+              `
+                  : ""
+              }
+              
+              ${
                 address
                   ? `
                 <div class="field">
@@ -111,7 +124,9 @@ Name: ${name}
 Email: ${email}
 Phone: ${phone}
 Service Type: ${serviceType}
+${servicePlan ? `Service Plan: ${servicePlan}` : ""}
 ${address ? `Property Address: ${address}` : ""}
+
 
 Message:
 ${message}
@@ -155,7 +170,7 @@ Sent from PrimeShine Cleaning contact form on ${new Date().toLocaleString()}
     console.log("Email sent successfully:", result.id)
 
     // Optional: Send auto-reply to customer
-    await sendAutoReply(email, name, MAILGUN_API_KEY, MAILGUN_DOMAIN)
+    // await sendAutoReply(email, name, MAILGUN_API_KEY, MAILGUN_DOMAIN)
 
     return {
       success: true,

@@ -40,6 +40,8 @@ import { ReactGoogleReviews } from "react-google-reviews"
 import { MasonryContainer } from "@/components/reviews/masonry-container"
 import { ReviewCard } from "@/components/reviews/review-card"
 import { sendContactEmail } from "@/actions/send-email"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const WindowCleanerWebsite = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -61,6 +63,7 @@ const WindowCleanerWebsite = () => {
       email: "",
       phone: "",
       serviceType: "",
+      servicePlan: "",
       address: "",
       message: "",
     },
@@ -106,6 +109,8 @@ const WindowCleanerWebsite = () => {
     }
   }
 
+  const router = useRouter()
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -119,16 +124,18 @@ const WindowCleanerWebsite = () => {
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Dirty Windows?
               <br />
-              <span className="text-blue-400">We can fix that</span>
+              <span className="text-primary">We can fix that</span>
             </h1>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Professional window cleaning services that leave your windows
               spotless and streak-free. Satisfaction guaranteed.
             </p>
-            <button className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
-              Get Your Free Quote
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </button>
+            <Link href="/#contact">
+              <button className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
+                Get Your Free Quote
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -330,6 +337,10 @@ const WindowCleanerWebsite = () => {
                   <Button
                     className="w-full"
                     variant={tier.popular ? "default" : "outline"}
+                    onClick={() => {
+                      setValue("servicePlan", tier.plan.toLowerCase())
+                      router.push("/#contact")
+                    }}
                   >
                     Get Your Quote
                   </Button>
@@ -386,6 +397,7 @@ const WindowCleanerWebsite = () => {
               </CardDescription>
             </CardHeader>
 
+            {/* Status Message */}
             {submitStatus && (
               <div className="mx-6 mb-6">
                 <div
@@ -521,25 +533,56 @@ const WindowCleanerWebsite = () => {
                   </div>
                 </div>
 
-                {/* Address Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="address">Property Address</Label>
-                  <Input
-                    id="address"
-                    {...register("address")}
-                    placeholder="123 Main St, Tupelo, MS 38801"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Optional: Helps us provide a more accurate quote
-                  </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Service Plan Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="servicePlan">Service Plan (Optional)</Label>
+                    <Select
+                      value={watch("servicePlan")}
+                      onValueChange={(value) => setValue("servicePlan", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a plan (optional)" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="one-time">
+                          One-Time Service
+                        </SelectItem>
+                        <SelectItem value="monthly">Monthly Plan</SelectItem>
+                        <SelectItem value="quarterly">
+                          Quarterly Plan
+                        </SelectItem>
+                        <SelectItem value="bi-annual">
+                          Bi-Annual Plan
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <input type="hidden" {...register("servicePlan")} />
+                    <p className="text-sm text-muted-foreground">
+                      Choose a service plan for additional savings
+                    </p>
+                  </div>
+
+                  {/* Address Field */}
+                  <div className="space-y-2">
+                    <Label htmlFor="address">Property Address (Optional)</Label>
+                    <Input
+                      id="address"
+                      {...register("address")}
+                      placeholder="123 Main St, Tupelo, MS 38801"
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      Helps us provide a more accurate quote
+                    </p>
+                  </div>
                 </div>
 
                 {/* Message Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="message">Message (optional)</Label>
                   <Textarea
                     id="message"
-                    {...register("message", {})}
+                    {...register("message")}
                     placeholder="Tell us about your window cleaning needs, number of windows, any special requirements..."
                     className={`min-h-[120px] `}
                   />
@@ -593,16 +636,18 @@ const WindowCleanerWebsite = () => {
         <div className="bg-primary text-primary-foreground pt-32 pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl font-bold mb-6">
-              Ready for Crystal Clear Windows?
+              Ready for a home makeover?
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              Get your free quote today and experience the difference
-              professional window cleaning makes.
+              Get your free quote today and experience the difference our
+              professional cleaning services can make.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="px-10 py-6">
-                Get Free Quote
-              </Button>
+              <Link href="/#contact">
+                <Button size="lg" variant="secondary" className="px-10 py-6">
+                  Get Free Quote
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -640,13 +685,13 @@ const WindowCleanerWebsite = () => {
                 Contact
               </h4>
               <div className="space-y-2 text-muted-foreground">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
                   <span>(555) 123-4567</span>
-                </div>
+                </div> */}
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 mr-2" />
-                  <span>info@primeshinecleaning.com</span>
+                  <span>primeshinetupelo@gmail.com</span>
                 </div>
               </div>
             </div>

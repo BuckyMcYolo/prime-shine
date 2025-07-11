@@ -43,11 +43,6 @@ const Nav = () => {
             Pricing
           </Button>
         </Link>
-        <Link href="/#contact">
-          <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
-            Contact
-          </Button>
-        </Link>
       </>
     )
   }
@@ -94,10 +89,11 @@ const Nav = () => {
           <div className="mr-4">
             <Links />
           </div>
-
-          <Button size={"lg"} className="text-lg">
-            Get a Quote
-          </Button>
+          <Link href="/#contact">
+            <Button size={"lg"} className="text-lg">
+              Get a Quote
+            </Button>
+          </Link>
         </div>
       </nav>
 
