@@ -114,20 +114,27 @@ const WindowCleanerWebsite = () => {
         className="relative py-20 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/hero.png')" }}
       >
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="left-0 top-0">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+
+        {/* Soft blurred white effect radiating from top-left */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/60 via-white/50 to-transparent opacity-50"></div>
+        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-white/30 via-transparent to-transparent"></div>
+
+        {/* Content container - aligned to top left */}
+        <div className="relative h-full flex items-start">
+          <div className="pl-4 sm:pl-6 lg:pl-8 max-w-4xl">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
               Dirty Windows?
               <br />
-              <span className="">We can fix that</span>
+              <span className="text-primary">We can fix that</span>
             </h1>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto tracking-wider">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl tracking-wider drop-shadow-md">
               Professional window cleaning services that leave your windows
               spotless and streak-free. Satisfaction guaranteed.
             </p>
             <Link href="/#contact">
-              <button className="group relative inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
+              <button className="group relative inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-lg font-bold text-white transition-all hover:bg-primary/85 cursor-pointer shadow-lg">
                 Get Your Free Quote
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
@@ -135,7 +142,6 @@ const WindowCleanerWebsite = () => {
           </div>
         </div>
       </section>
-
       {/* Process Section */}
       <section id="process" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
