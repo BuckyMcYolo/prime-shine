@@ -11,7 +11,7 @@ const StarRating = ({ rating }: { rating: number }) => {
         <Star
           key={star}
           className={`w-4 h-4 ${
-            star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+            star <= rating ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
           }`}
         />
       ))}
@@ -110,7 +110,7 @@ export const ReviewCard = ({
   const { reviewId, reviewer, comment, starRating, createTime } = review
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="bg-background rounded-2xl p-6 shadow-sm border border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       {/* Profile and Rating */}
       <div className="flex items-center gap-3 mb-4">
         <ProfileAvatar reviewer={reviewer} />

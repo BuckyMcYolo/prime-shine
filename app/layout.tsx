@@ -9,11 +9,6 @@ const inter = Inter({
   subsets: ["latin"],
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
 export const metadata: Metadata = {
   title: "Prime Shine Cleaning",
   description: "Professional Window Cleaning Services in Tupelo MS",

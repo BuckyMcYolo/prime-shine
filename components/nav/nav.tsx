@@ -49,7 +49,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="top-0 sticky w-full h-14 md:h-16 lg:h-20 flex justify-between items-center bg-white dark:bg-neutral-950 z-50 border-b">
+      <nav className="top-0 sticky w-full h-14 md:h-16 lg:h-20 flex justify-between items-center bg-background z-50 border-b">
         {/* Logo */}
         <div className="flex items-center">
           <Link

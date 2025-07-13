@@ -3,12 +3,8 @@
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import {
-  Star,
   CheckCircle,
-  Phone,
   Mail,
-  MapPin,
-  Menu,
   ArrowRight,
   Send,
   AlertCircle,
@@ -120,18 +116,18 @@ const WindowCleanerWebsite = () => {
       >
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <div className="left-0 top-0">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
               Dirty Windows?
               <br />
-              <span className="text-primary">We can fix that</span>
+              <span className="">We can fix that</span>
             </h1>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto tracking-wider">
               Professional window cleaning services that leave your windows
               spotless and streak-free. Satisfaction guaranteed.
             </p>
             <Link href="/#contact">
-              <button className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
+              <button className="group relative inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-lg font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 cursor-pointer">
                 Get Your Free Quote
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
@@ -181,7 +177,7 @@ const WindowCleanerWebsite = () => {
             ].map((step) => (
               <div
                 key={step.step}
-                className="bg-white dark:bg-neutral-800/50 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-700 hover:border-blue-300 hover:dark:border-blue-700 shadow-sm hover:shadow-md transition-all"
+                className="bg-background rounded-3xl overflow-hidden border border-accent hover:border-primary  shadow-sm hover:shadow-md transition-all"
               >
                 {/* Image area with overflow effect - notice we removed object-contain */}
                 <div className="relative h-96 overflow-hidden">
@@ -389,7 +385,7 @@ const WindowCleanerWebsite = () => {
             </p>
           </div>
 
-          <Card className="shadow-lg">
+          <Card className=" drop-shadow-2xl bg-background ">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Contact Us</CardTitle>
               <CardDescription className="text-center">
@@ -627,7 +623,7 @@ const WindowCleanerWebsite = () => {
           >
             <path
               d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-              className="fill-white"
+              className="fill-background"
             ></path>
           </svg>
         </div>
