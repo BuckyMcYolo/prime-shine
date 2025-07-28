@@ -34,12 +34,20 @@ const Nav = () => {
           </Button>
         </Link> */}
         <Link href="/#process">
-          <Button variant={"ghost"} className={"text-xl w-full"} size={"lg"}>
+          <Button
+            variant={"ghost"}
+            className={"text-xl w-full sm:w-auto"}
+            size={"lg"}
+          >
             Process
           </Button>
         </Link>
         <Link href="/#pricing">
-          <Button variant={"ghost"} className={"text-xl w-full"} size={"lg"}>
+          <Button
+            variant={"ghost"}
+            className={"text-xl w-full sm:w-auto"}
+            size={"lg"}
+          >
             Pricing
           </Button>
         </Link>
