@@ -663,7 +663,7 @@ const WindowCleanerWebsite = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <Image
-                src={"/logo-new.png"}
+                src={"/logo2.png"}
                 alt="PrimeShine Logo"
                 width={200}
                 height={50}

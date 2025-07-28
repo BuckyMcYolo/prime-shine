@@ -58,7 +58,7 @@ const Nav = () => {
           >
             <div className="w-32 md:w-40 lg:w-48">
               <Image
-                src={"/logo-new.png"}
+                src={"/logo2.png"}
                 alt="PrimeShine Logo"
                 width={65}
                 height={50}
