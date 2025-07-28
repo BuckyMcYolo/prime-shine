@@ -110,7 +110,7 @@ export const ReviewCard = ({
   const { reviewId, reviewer, comment, starRating, createTime } = review
 
   return (
-    <div className="bg-background rounded-2xl p-6 shadow-sm border border-accent hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="bg-background rounded-2xl p-6 shadow-sm border border-primary/30 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       {/* Profile and Rating */}
       <div className="flex items-center gap-3 mb-4">
         <ProfileAvatar reviewer={reviewer} />

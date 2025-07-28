@@ -183,7 +183,7 @@ const WindowCleanerWebsite = () => {
             ].map((step) => (
               <div
                 key={step.step}
-                className="bg-background rounded-3xl overflow-hidden border border-accent hover:border-primary  shadow-sm hover:shadow-md transition-all"
+                className="bg-background rounded-3xl overflow-hidden border border-primary/30 hover:border-primary hover:ring-2 hover:ring-primary/30 shadow-sm hover:shadow-md transition-all"
               >
                 {/* Image area with overflow effect - notice we removed object-contain */}
                 <div className="relative h-96 overflow-hidden">
@@ -307,8 +307,10 @@ const WindowCleanerWebsite = () => {
             ].map((tier, index) => (
               <Card
                 key={index}
-                className={`relative ${
-                  tier.popular ? "border-primary shadow-lg scale-105" : ""
+                className={`relative bg-muted/40 ${
+                  tier.popular
+                    ? "border-primary shadow-lg scale-105 border-2"
+                    : "border-primary/30"
                 }`}
               >
                 {tier.popular && (
@@ -338,7 +340,7 @@ const WindowCleanerWebsite = () => {
                 <CardFooter>
                   <Button
                     className="w-full"
-                    variant={tier.popular ? "default" : "outline"}
+                    // variant={tier.popular ? "default" : "outline"}
                     onClick={() => {
                       setValue("servicePlan", tier.plan.toLowerCase())
                       router.push("/#contact")
@@ -391,7 +393,7 @@ const WindowCleanerWebsite = () => {
             </p>
           </div>
 
-          <Card className=" drop-shadow-2xl bg-background ">
+          <Card className=" drop-shadow-2xl bg-white border-primary/30 border-2">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Contact Us</CardTitle>
               <CardDescription className="text-center">
@@ -656,14 +658,14 @@ const WindowCleanerWebsite = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary text-secondary-foreground py-12">
+      <footer className="bg-background text-secondary-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <Image
-                src={"/logo.png"}
+                src={"/logo-new.png"}
                 alt="PrimeShine Logo"
-                width={150}
+                width={200}
                 height={50}
               />
               {/* <p className="text-muted-foreground">
@@ -702,11 +704,12 @@ const WindowCleanerWebsite = () => {
                 Hours
               </h4>
               <div className="text-muted-foreground">
-                <p>Monday - Sunday: 7am - 8pm</p>
+                <p>Monday - Friday: 8am - 7pm</p>
+                <p>Saturday - Sunday: 7am - 8pm</p>
               </div>
             </div>
           </div>
-          <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
+          <div className="border-t border-primary/30 mt-8 pt-8 text-center text-muted-foreground">
             <p>
               &copy; {new Date().getFullYear()} PrimeShine Cleaning. All rights
               reserved.

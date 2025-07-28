@@ -49,7 +49,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="top-0 sticky w-full h-14 md:h-16 lg:h-20 flex justify-between items-center bg-background z-50 border-b">
+      <nav className="top-0 sticky w-full h-14 md:h-16 lg:h-20 flex justify-between items-center bg-background z-50 border-b border-primary/30">
         {/* Logo */}
         <div className="flex items-center">
           <Link
@@ -58,9 +58,9 @@ const Nav = () => {
           >
             <div className="w-32 md:w-40 lg:w-48">
               <Image
-                src={"/logo.png"}
+                src={"/logo-new.png"}
                 alt="PrimeShine Logo"
-                width={70}
+                width={65}
                 height={50}
                 className="translate-y-1 sm:scale-110"
               />
