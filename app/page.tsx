@@ -668,9 +668,6 @@ const WindowCleanerWebsite = () => {
                 width={200}
                 height={50}
               />
-              {/* <p className="text-muted-foreground">
-                Professional window cleaning services you can trust.
-              </p> */}
             </div>
 
             <div>
