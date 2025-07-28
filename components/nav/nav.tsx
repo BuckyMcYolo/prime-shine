@@ -34,12 +34,12 @@ const Nav = () => {
           </Button>
         </Link> */}
         <Link href="/#process">
-          <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
+          <Button variant={"ghost"} className={"text-xl w-full"} size={"lg"}>
             Process
           </Button>
         </Link>
         <Link href="/#pricing">
-          <Button variant={"ghost"} className={"text-xl"} size={"lg"}>
+          <Button variant={"ghost"} className={"text-xl w-full"} size={"lg"}>
             Pricing
           </Button>
         </Link>
@@ -108,10 +108,12 @@ const Nav = () => {
             transition={{ duration: 0.2 }}
             className="sticky top-14 md:hidden w-full h-fit z-50"
           >
-            <Card className="bg-white dark:bg-neutral-950 rounded-none">
+            <Card className="bg-background dark:bg-neutral-950 rounded-none">
               <motion.section key="section" className="flex flex-col">
                 <Links />
-                <Button className="text-sm">Get a Quote</Button>
+                <Link href="/#contact" className="w-full px-3 mt-2">
+                  <Button className="text-sm w-full">Get a Quote</Button>
+                </Link>
               </motion.section>
             </Card>
           </motion.div>
