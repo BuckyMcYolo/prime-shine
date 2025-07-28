@@ -56,13 +56,14 @@ const Nav = () => {
             href="/"
             className="font-semibold text-base md:text-lg lg:text-2xl ml-3 lg:ml-4 hover:text-blue-500 tracking-wide dark:font-normal"
           >
-            <div className="w-32 md:w-40 lg:w-48">
+            <div className="size-13 md:size-15 lg:size-20">
               <Image
                 src={"/logo2.png"}
                 alt="PrimeShine Logo"
-                width={65}
-                height={50}
-                className="translate-y-1 sm:scale-110"
+                width={200}
+                height={200}
+                priority
+                // className="lg:scale-140 "
               />
             </div>
           </Link>
